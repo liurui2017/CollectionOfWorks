@@ -56,9 +56,10 @@ type WorkType = components['schemas']['WorkType'];   // 'video' | 'article' | 'n
 | 方法 | 路径 | 说明 |
 | --- | --- | --- |
 | GET | `/api/v1/works` | 作品列表。参数：`type`、`category`（slug）、`tag`（slug）、`q`（关键词）、`featured`、`sort`（`latest`/`oldest`/`views`）、`page`、`page_size` → `Paginated[WorkListItem]` |
-| GET | `/api/v1/works/{slug}` | 作品详情 → `WorkDetail`；不存在或非 published 返回 404；命中成功时 `view_count` 自增 |
+| GET | `/api/v1/works/{slug}` | 作品详情 → `WorkDetail`；不存在或非 published 返回 404；命中成功时 `view_count` 自增 + 写入 `analytics_events` |
 | GET | `/api/v1/categories` | 分类列表 → `list[CategoryOut]` |
 | GET | `/api/v1/tags` | 标签列表（可按 `limit` 取热门）→ `list[TagOut]` |
+| GET | `/api/v1/site/profile` | 站点设置（含作者昵称、简介、头像、社交链接）→ `SiteProfileOut`；前端 App 启动时拉一次并缓存 |
 | GET | `/media/{path}` | 静态媒体文件（视频/图片） |
 
 ### 2.2 鉴权
@@ -75,7 +76,7 @@ Token 策略：JWT（HS256），`exp` 默认 24 小时；密钥来自环境变�
 
 | 方法 | 路径 | 说明 |
 | --- | --- | --- |
-| GET | `/api/v1/admin/works` | 管理列表，可带 `status`/`type`/`category_id`/`q`，返回含草稿的 `Paginated[WorkListItem]` |
+| GET | `/api/v1/admin/works` | 管理列表，可带 `status`/`type`/`category_id`/`q`，返回含草稿的 `Paginated[WorkListItem]`；**扩展**：每条附带 `views_today`/`views_last_7d`（聚合自 `analytics_events`） |
 | POST | `/api/v1/admin/works` | 新建 → 入参 `WorkCreate`，出参 `WorkDetail` |
 | GET | `/api/v1/admin/works/{id}` | 回填编辑表单 → `WorkDetail` |
 | PUT | `/api/v1/admin/works/{id}` | 全量更新 → 入参 `WorkCreate`（`slug` 冲突返回 409） |
@@ -86,6 +87,9 @@ Token 策略：JWT（HS256），`exp` 默认 24 小时；密钥来自环境变�
 | DELETE | `/api/v1/admin/media/{id}` | 从媒体库删除（若被作品引用返回 409） |
 | GET/POST/PUT/DELETE | `/api/v1/admin/categories` | 分类增删改查（POST 入参 `{name, slug, description, sort_order}`） |
 | GET/POST/PUT/DELETE | `/api/v1/admin/tags` | 标签增删改查 |
+| GET | `/api/v1/admin/site/profile` | 获取站点设置（含头像展开对象）→ `SiteProfileOut` |
+| PUT | `/api/v1/admin/site/profile` | 更新站点设置 → 入参 `SiteProfileUpdate` |
+| GET | `/api/v1/admin/analytics/trend` | **v2 预留**：访问趋势。参数 `work_id`（可空=全站）、`days`（默认 30）→ `AnalyticsTrend` |
 
 请求/响应示例：
 

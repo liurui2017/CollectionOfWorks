@@ -136,16 +136,85 @@ UNIQUE (work_id, media_id, role)
 | `tag_id` | BIGINT | FK `tags(id)` ON DELETE CASCADE |
 | | | PRIMARY KEY (`work_id`, `tag_id`) |
 
+### 2.8 `site_profile` — 站点设置（单行记录）
+
+| 字段 | 类型 | 约束 | 说明 |
+| --- | --- | --- | --- |
+| `id` | INTEGER | PK, CHECK (id = 1) | 固定单行，保证只有一条配置 |
+| `site_name` | VARCHAR(60) | NOT NULL, DEFAULT '我的作品集' | 站点显示名 |
+| `nickname` | VARCHAR(40) | NOT NULL, DEFAULT '' | 作者昵称 |
+| `headline` | VARCHAR(120) | NULL | 一句话简介（显示在 Hero） |
+| `bio` | TEXT | NULL | 详细介绍（显示在「关于我」） |
+| `avatar_media_id` | BIGINT | FK `media(id)` NULL, ON DELETE SET NULL | 头像图片 |
+| `social_links` | JSONB | NOT NULL, DEFAULT '[]' | 社交链接数组，每项 `{label, url}` |
+| `footer_text` | VARCHAR(200) | NULL | 页脚文字 |
+| `created_at` | TIMESTAMPTZ | NOT NULL, DEFAULT now() | |
+| `updated_at` | TIMESTAMPTZ | NOT NULL, DEFAULT now() | |
+
+说明：单行表。后端启动时若不存在则自动插入默认记录（id=1）。前端通过 `GET /api/v1/site/profile` 拉一次并缓存。`social_links` 结构示例：
+
+```json
+[
+  { "label": "GitHub", "url": "https://github.com/xxx" },
+  { "label": "Bilibili", "url": "https://space.bilibili.com/xxx" }
+]
+```
+
+### 2.9 `analytics_events` — 访问事件（浏览量数据底座）
+
+| 字段 | 类型 | 约束 | 说明 |
+| --- | --- | --- | --- |
+| `id` | BIGSERIAL | PK | |
+| `event_type` | VARCHAR(20) | NOT NULL | 固定值 `work_view`（v1 只记录详情页访问） |
+| `work_id` | BIGINT | FK `works(id)` NULL, ON DELETE SET NULL | 关联作品；首页/列表等页面访问为 NULL |
+| `path` | VARCHAR(255) | NOT NULL | 访问路径，如 `/works/night-city` |
+| `visitor_hash` | VARCHAR(64) | NOT NULL | 访客指纹 SHA-256（IP + UA + Cookie 合成，**不**存原始 IP） |
+| `referer` | VARCHAR(500) | NULL | 来源页面 |
+| `user_agent` | VARCHAR(500) | NULL | UA，v1 仅存原始串 |
+| `created_at` | TIMESTAMPTZ | NOT NULL, DEFAULT now() | 事件发生时间 |
+
+索引：
+
+```sql
+CREATE INDEX idx_events_work_day   ON analytics_events (work_id, created_at DESC);
+CREATE INDEX idx_events_created    ON analytics_events (created_at DESC);
+CREATE INDEX idx_events_visitor    ON analytics_events (visitor_hash, created_at);
+```
+
+设计约束与用途：
+
+- **v1 写入路径**：详情页接口在返回成功后触发 `INSERT analytics_events (event_type='work_view', work_id=?, ...)`，与 `works.view_count` 自增同时发生（同事务），确保计数与明细一致。
+- **v1 读取路径**：后台「作品管理」列表页增加 **今日访问 / 7 日访问** 两列，SQL 示例：
+
+```sql
+SELECT work_id,
+       COUNT(*) FILTER (WHERE created_at >= CURRENT_DATE)                          AS today,
+       COUNT(*) FILTER (WHERE created_at >= CURRENT_DATE - INTERVAL '7 days')     AS last_7d
+FROM analytics_events
+WHERE work_id IN (...) GROUP BY work_id;
+```
+
+- **v2 演进（不阻塞 v1）**：
+  - 趋势图：按日期 GROUP BY 出每天 PV/UV
+  - 来源分析：`referer` 去域名聚合
+  - UA 解析：用 `user-agents` 库拆分设备/浏览器/OS
+  - 页面级事件：`event_type='page_view'` 不带 work_id
+  - 实时面板：按分钟/小时聚合的近 24h 数据
+
+- **隐私**：不存原始 IP，`visitor_hash` 仅用于区分访客（UV），**不可逆**。若未来需要地域分析，可追加一个 `country_code VARCHAR(2)` 字段（用 GeoIP2 离线库解析一次后只存国家码），仍然不暴露原始 IP。
+
 ---
 
 ## 3. 关系总览
 
 ```
 users         （独立，仅鉴权）
+site_profile  （单行，站点设置）
 
-categories 1 ──< works >── N tags
-                   │            （via work_tags）
-                   └──< work_media >── media
+categories 1 ──< works >── N tags                   analytics_events
+                   │            （via work_tags）          │
+                   └──< work_media >── media               └─ work_id (可空)
+                                                            └─ visitor_hash
 ```
 
 ---
@@ -264,6 +333,54 @@ class AdminUserOut(BaseModel):
     last_login_at: datetime | None
 ```
 
+### 4.6 站点设置
+
+```python
+class SocialLink(BaseModel):
+    label: str
+    url: str
+
+class SiteProfileOut(BaseModel):
+    id: int
+    site_name: str
+    nickname: str
+    headline: str | None
+    bio: str | None
+    avatar: MediaOut | None             # 展开的头像对象；没有头像时为 None
+    social_links: list[SocialLink]
+    footer_text: str | None
+    updated_at: datetime
+
+class SiteProfileUpdate(BaseModel):
+    site_name: str | None = None
+    nickname: str | None = None
+    headline: str | None = None
+    bio: str | None = None
+    avatar_media_id: int | None = None
+    social_links: list[SocialLink] | None = None
+    footer_text: str | None = None
+```
+
+### 4.7 访问统计（后台管理用）
+
+```python
+# 后台作品管理列表页的扩展聚合数据（不单独暴露，只在 /admin/works 列表里带回来）
+class WorkAnalyticsSnapshot(BaseModel):
+    work_id: int
+    views_today: int
+    views_last_7d: int
+
+# v2 访问趋势接口（v1 暂不实现，保留字段约定）
+class AnalyticsPoint(BaseModel):
+    date: date                         # 2026-10-20
+    pv: int
+    uv: int
+
+class AnalyticsTrend(BaseModel):
+    work_id: int | None                # None = 全站汇总
+    points: list[AnalyticsPoint]
+```
+
 ---
 
 ## 5. 约定与注意事项
@@ -274,16 +391,17 @@ class AdminUserOut(BaseModel):
 4. **枚举**：前端展示文案（如 `video` → 「短视频」）写成一张常量映射表，不用枚举值直接展示。
 5. **聚合字段**：`work_count`、`view_count` 属派生数据，只读，写入接口忽略。
 6. **视频派生信息**：`duration_seconds` / `width` / `height` 由后端上传时解析（ffprobe），前端只读展示。
+7. **访问隐私**：`analytics_events` 永不存原始 IP；`visitor_hash` 不可逆，仅用于 UV 区分。v2 如需地域分析，只存国家码，不重新引 IP。
 
 ---
 
-## 6. 待你确认的开放项
+## 6. 已定方案与后续演进
 
-| # | 问题 | 当前默认方案 |
-| --- | --- | --- |
-| 1 | 首页「关于我」内容是否需要后台可编辑？你之前未选「站点设置」模块 | 暂**硬编码在前端**；若需可编辑，则新增单行表 `site_profile`（nickname/avatar/about/social_links） |
-| 2 | 作品浏览量是否需要统计与展示？ | 仅做详情页 `view_count` 自增，不做访问来源/趋势报表 |
-| 3 | 搜索实现方式 | v1 用 `ILIKE '%q%'` 匹配 `title`/`summary`/`content`；数据量增长后再升级 `tsvector` + `pg_trgm` |
-| 4 | 视频是否需要自动生成封面缩略图或转码？ | v1 **不做**，封面由你手动上传；不引入 ffmpeg，仅用 ffprobe 读时长/分辨率 |
-| 5 | 是否需要 RSS / sitemap.xml（SEO） | v1 不做，后续可加 |
-| 6 | 是否需要定时发布（未来时间自动转已发布） | v1 不做，`published_at` 仅作展示字段 |
+| # | 决策点 | v1 方案 | v2 演进（不阻塞首发） |
+| --- | --- | --- | --- |
+| 1 | 关于我内容 | `site_profile` 单行表 + 后台「站点设置」菜单，前端读取 | SEO meta / OG 卡片按站点配置动态生成 |
+| 2 | 浏览量 | `works.view_count` 自增 + `analytics_events` 明细落库；后台列表加今日/7日访问列 | 趋势图、来源分析、UA 解析、实时面板（见 2.9 设计约束） |
+| 3 | 搜索 | `ILIKE '%q%'` 匹配 title/summary/content | `tsvector` + `pg_trgm`，引入 postgres 全文搜索 |
+| 4 | 视频处理 | 不做封面自动生成与转码，仅 ffprobe 解析时长/分辨率 | ffmpeg 自动抽帧封面、HLS 切片自适应码率 |
+| 5 | SEO | v1 不做 RSS / sitemap | sitemap.xml + `/api/v1/feed.xml` |
+| 6 | 定时发布 | v1 不做，`published_at` 仅作展示字段 | cron 扫描未来时间的 draft 自动转 published |
