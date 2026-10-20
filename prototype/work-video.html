@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>夜行：城市的另一面 · 短视频详情</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="index.html"><span class="brand-dot"></span> 林一 · Portfolio</a>
+    <nav class="nav-links">
+      <a href="index.html">首页</a>
+      <a href="works.html" class="active">作品</a>
+      <a href="index.html#about">关于</a>
+      <a href="admin-login.html" class="nav-admin">管理后台</a>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap detail-hero">
+  <a class="back-link" href="works.html">← 返回作品列表</a>
+  <span class="badge badge-accent">短视频</span>
+  <h1 class="detail-title">夜行：城市的另一面</h1>
+  <div class="detail-meta">
+    <span>2026-09-12 发布</span><span class="dot-sep"></span>
+    <span>分类：短片</span><span class="dot-sep"></span>
+    <span>时长 04:18</span><span class="dot-sep"></span>
+    <span>1,243 次观看</span>
+  </div>
+</div>
+
+<div class="wrap detail-layout">
+  <div>
+    <!-- 视频播放器（原型为示意，正式实现使用 <video> + 封面/进度条） -->
+    <div class="player">
+      <img alt="" src="assets/img/video-city.jpg" onerror="this.style.display='none'">
+      <button class="player-btn">▶</button>
+      <div class="player-bottom">
+        <span class="player-time">01:23</span>
+        <span class="player-track"><i></i></span>
+        <span class="player-time">04:18</span>
+      </div>
+    </div>
+
+    <div class="prose" style="margin-top: 30px;">
+      <p>这是一支在凌晨拍摄的短片。两点出发，四点收工，中间遇到了一场雨。</p>
+      <p>我本来想拍城市的空旷，结果拍到了它难得的湿润与反光。<strong>雨让霓虹变成了两种颜色。</strong></p>
+      <blockquote>拍摄设备：Sony FX3 / 24-70mm · 部分镜头使用延时模式，间隔 2 秒。</blockquote>
+      <h2>拍摄笔记</h2>
+      <ul>
+        <li>所有镜头均为手持，未使用稳定器，保留轻微的呼吸感</li>
+        <li>白平衡固定在 4000K，让画面整体偏冷</li>
+        <li>后期只做了对比度与色相微调，没有加任何 LUT</li>
+      </ul>
+    </div>
+  </div>
+
+  <aside style="display:flex; flex-direction:column; gap:18px;">
+    <div class="aside-card">
+      <h4>作品信息</h4>
+      <div class="kv"><span>内容类型</span><span>短视频</span></div>
+      <div class="kv"><span>分类</span><span>短片</span></div>
+      <div class="kv"><span>视频文件</span><span>night-city.mp4</span></div>
+      <div class="kv"><span>文件大小</span><span>184 MB</span></div>
+      <div class="kv"><span>时长</span><span>04:18</span></div>
+      <div class="kv"><span>分辨率</span><span>3840 × 2160</span></div>
+      <div class="kv"><span>发布时间</span><span>2026-09-12</span></div>
+    </div>
+
+    <div class="aside-card">
+      <h4>标签</h4>
+      <div style="display:flex; flex-wrap:wrap; gap:8px;">
+        <a class="tag-chip" href="works.html"># 城市</a>
+        <a class="tag-chip" href="works.html"># 夜景</a>
+        <a class="tag-chip" href="works.html"># 延时摄影</a>
+        <a class="tag-chip" href="works.html"># 雨天</a>
+      </div>
+    </div>
+
+    <div class="aside-card">
+      <h4>相关作品</h4>
+      <a class="kv" href="work-video.html"><span>巷子里的光</span><span>▶</span></a>
+      <a class="kv" href="work-video.html"><span>晨雾之上</span><span>▶</span></a>
+      <a class="kv" href="work-gallery.html"><span>混凝土诗学</span><span>图集</span></a>
+    </div>
+  </aside>
+</div>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-inner">
+      <span>© 2026 林一 · 个人作品集</span>
+      <span>React + FastAPI 构建</span>
+    </div>
+    <div class="proto-nav">
+      <div class="lbl">原型页面导航（评审用）</div>
+      <div class="links">
+        <a class="tag-chip" href="index.html">首页</a>
+        <a class="tag-chip" href="works.html">作品列表 / 搜索筛选</a>
+        <a class="tag-chip on" href="work-video.html">详情 · 短视频</a>
+        <a class="tag-chip" href="work-article.html">详情 · Markdown</a>
+        <a class="tag-chip" href="work-note.html">详情 · 纯文本</a>
+        <a class="tag-chip" href="work-gallery.html">详情 · 图集</a>
+        <a class="tag-chip" href="admin-login.html">后台 · 登录</a>
+        <a class="tag-chip" href="admin-works.html">后台 · 作品管理</a>
+        <a class="tag-chip" href="admin-work-edit.html">后台 · 作品编辑</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

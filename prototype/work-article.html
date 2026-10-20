@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>我如何组织一个长期创作项目 · Markdown 详情</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="index.html"><span class="brand-dot"></span> 林一 · Portfolio</a>
+    <nav class="nav-links">
+      <a href="index.html">首页</a>
+      <a href="works.html" class="active">作品</a>
+      <a href="index.html#about">关于</a>
+      <a href="admin-login.html" class="nav-admin">管理后台</a>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap detail-hero">
+  <a class="back-link" href="works.html">← 返回作品列表</a>
+  <span class="badge">Markdown 文章</span>
+  <h1 class="detail-title">我如何组织一个长期创作项目</h1>
+  <div class="detail-meta">
+    <span>2026-08-30 发布</span><span class="dot-sep"></span>
+    <span>分类：长文</span><span class="dot-sep"></span>
+    <span>约 8 分钟阅读</span><span class="dot-sep"></span>
+    <span>436 次阅读</span>
+  </div>
+</div>
+
+<div class="wrap detail-layout">
+  <article class="prose">
+    <img alt="" src="assets/img/article-data.jpg" onerror="this.style.display='none'">
+
+    <p>过去两年我同时推进了三个创作项目，结果只有最后一个活了下来。复盘之后我发现，问题不在于时间不够，而在于<strong>我没有为「长期」这件事设计流程</strong>。</p>
+
+    <h2>一、先定义产出物，再定义流程</h2>
+    <p>大多数人从「我要开始做」出发，而我更推荐从「最终交付什么」倒推。对我而言，一个项目的产出物只有三类：</p>
+    <ul>
+      <li><strong>成品</strong>：一支短片 / 一篇长文 / 一组图集</li>
+      <li><strong>素材</strong>：原始片段、照片、灵感笔记</li>
+      <li><strong>决策记录</strong>：为什么删掉这个镜头、为什么换这个标题</li>
+    </ul>
+    <p>第三类最容易被忽略，但它是复盘的唯一依据。</p>
+
+    <h2>二、目录结构约定</h2>
+    <p>我用一套固定的目录结构承载所有项目，这样换电脑、换工具都不用重新适应：</p>
+    <pre><code>projects/
+  └─ night-city/
+      ├─ 00-inbox/        # 随手记录的灵感
+      ├─ 10-footage/      # 原始素材
+      ├─ 20-projects/     # 剪辑工程文件
+      ├─ 30-exports/      # 导出成品
+      └─ 40-notes/        # 决策与复盘</code></pre>
+
+    <h2>三、我踩过的三个坑</h2>
+    <table>
+      <thead>
+        <tr><th>坑</th><th>表现</th><th>现在怎么做</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>素材不整理</td><td>剪辑时找不到关键镜头</td><td>拍完当天导入并打标</td></tr>
+        <tr><td>追求一次性完美</td><td>项目永远停在 80%</td><td>先出粗剪，再迭代</td></tr>
+        <tr><td>没有截止时间</td><td>无限期拖延</td><td>发布日提前写在日历上</td></tr>
+      </tbody>
+    </table>
+
+    <blockquote>完成比完美重要，但「完成」需要被定义。定义的方式就是给它一个发布日期。</blockquote>
+
+    <h2>四、关于工具</h2>
+    <p>工具本身不重要，重要的是每一层只用一个工具。比如素材层我用 <code>Finder + 标签</code>，笔记层统一用 Markdown 文件，剪辑层固定一个工程模板。</p>
+    <p>如果你也在做长期项目，欢迎<a href="#">写信和我聊聊</a>。</p>
+  </article>
+
+  <aside style="display:flex; flex-direction:column; gap:18px;">
+    <div class="aside-card">
+      <h4>作品信息</h4>
+      <div class="kv"><span>内容类型</span><span>Markdown 文章</span></div>
+      <div class="kv"><span>分类</span><span>长文</span></div>
+      <div class="kv"><span>正文字数</span><span>1,860 字</span></div>
+      <div class="kv"><span>发布时间</span><span>2026-08-30</span></div>
+      <div class="kv"><span>状态</span><span>已发布</span></div>
+    </div>
+
+    <div class="aside-card">
+      <h4>标签</h4>
+      <div style="display:flex; flex-wrap:wrap; gap:8px;">
+        <a class="tag-chip" href="works.html"># 创作方法</a>
+        <a class="tag-chip" href="works.html"># 工作流</a>
+        <a class="tag-chip" href="works.html"># 复盘</a>
+      </div>
+    </div>
+
+    <div class="aside-card">
+      <h4>本文目录</h4>
+      <div class="kv"><span>一、先定义产出物</span><span>1</span></div>
+      <div class="kv"><span>二、目录结构约定</span><span>2</span></div>
+      <div class="kv"><span>三、我踩过的三个坑</span><span>3</span></div>
+      <div class="kv"><span>四、关于工具</span><span>4</span></div>
+    </div>
+  </aside>
+</div>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-inner">
+      <span>© 2026 林一 · 个人作品集</span>
+      <span>React + FastAPI 构建</span>
+    </div>
+    <div class="proto-nav">
+      <div class="lbl">原型页面导航（评审用）</div>
+      <div class="links">
+        <a class="tag-chip" href="index.html">首页</a>
+        <a class="tag-chip" href="works.html">作品列表 / 搜索筛选</a>
+        <a class="tag-chip" href="work-video.html">详情 · 短视频</a>
+        <a class="tag-chip on" href="work-article.html">详情 · Markdown</a>
+        <a class="tag-chip" href="work-note.html">详情 · 纯文本</a>
+        <a class="tag-chip" href="work-gallery.html">详情 · 图集</a>
+        <a class="tag-chip" href="admin-login.html">后台 · 登录</a>
+        <a class="tag-chip" href="admin-works.html">后台 · 作品管理</a>
+        <a class="tag-chip" href="admin-work-edit.html">后台 · 作品编辑</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

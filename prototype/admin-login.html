@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>管理后台 · 登录</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<div class="login-page">
+  <div class="login-card">
+    <a class="brand" href="index.html"><span class="brand-dot"></span> 林一 · 后台</a>
+    <p class="tip">仅限管理员登录，登录后 24 小时内免登录</p>
+
+    <div class="field">
+      <label for="u">用户名</label>
+      <input class="input" id="u" type="text" placeholder="admin" autocomplete="username">
+    </div>
+    <div class="field">
+      <label for="p">密码</label>
+      <input class="input" id="p" type="password" placeholder="••••••••" autocomplete="current-password">
+    </div>
+
+    <div style="display:flex; align-items:center; justify-content:space-between; margin: 4px 0 22px; font-size:13px; color: var(--text-mute);">
+      <label style="display:flex; align-items:center; gap:8px; cursor:pointer;">
+        <input type="checkbox" checked style="accent-color: var(--accent);"> 记住我
+      </label>
+      <span>忘记密码？需联系站点所有者</span>
+    </div>
+
+    <a class="btn btn-primary" href="admin-works.html" style="width:100%; justify-content:center;">登 录</a>
+
+    <p style="text-align:center; color: var(--text-mute); font-size:12.5px; margin:18px 0 0;">
+      鉴权方式：单管理员账号 + JWT（access token 存 localStorage）
+    </p>
+  </div>
+</div>
+
+</body>
+</html>

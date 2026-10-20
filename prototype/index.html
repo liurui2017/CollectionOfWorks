@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>首页 · 个人作品集原型</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="index.html"><span class="brand-dot"></span> 林一 · Portfolio</a>
+    <nav class="nav-links">
+      <a href="index.html" class="active">首页</a>
+      <a href="works.html">作品</a>
+      <a href="index.html#about">关于</a>
+      <a href="admin-login.html" class="nav-admin">管理后台</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ============ Hero ============ -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow">Video · Writing · Visual</div>
+      <h1>用影像与文字<br>记录<em>值得留下的东西</em></h1>
+      <p class="hero-lead">
+        我是一名独立创作者，做短片、写长文、拍照片。
+        这里是我的作品集，按短视频、Markdown 文章、纯文本短文与图集四种形式归档。
+      </p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="works.html">浏览全部作品 →</a>
+        <a class="btn btn-ghost" href="#about">了解我</a>
+      </div>
+      <div class="hero-stats">
+        <div><div class="num">42</div><div class="lbl">作品总数</div></div>
+        <div><div class="num">16</div><div class="lbl">短视频</div></div>
+        <div><div class="num">6</div><div class="lbl">分类</div></div>
+        <div><div class="num">28</div><div class="lbl">标签</div></div>
+      </div>
+    </div>
+    <div class="avatar-card">
+      <img alt="头像"
+        src="assets/img/avatar.jpg"
+        onerror="this.style.display='none'">
+      <span class="ring"></span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 精选作品 ============ -->
+<section class="wrap" style="padding: 20px 24px 70px;">
+  <div class="section-head">
+    <div>
+      <div class="eyebrow">Featured</div>
+      <h2>精选作品</h2>
+      <p>后台可勾选「精选」开关，勾选的作品会出现在这里</p>
+    </div>
+    <a class="btn btn-sm" href="works.html">全部作品</a>
+  </div>
+
+  <div class="grid">
+    <a class="card" href="work-video.html">
+      <div class="card-cover">
+        <span class="badge badge-accent">短视频</span>
+        <img alt=""
+          src="assets/img/video-city.jpg"
+          onerror="this.style.display='none'">
+        <span class="play-chip">▶</span>
+      </div>
+      <div class="card-body">
+        <h3 class="card-title">夜行：城市的另一面</h3>
+        <p class="card-desc">用延时摄影记录凌晨两点到四点的城市，霓虹、雨水与空无一人的街道。</p>
+        <div class="card-meta"><span>2026-09-12</span><span class="dot-sep"></span><span>04:18</span><span class="dot-sep"></span><span>1.2k 次观看</span></div>
+      </div>
+    </a>
+
+    <a class="card" href="work-article.html">
+      <div class="card-cover">
+        <span class="badge">Markdown 文章</span>
+        <img alt=""
+          src="assets/img/article-data.jpg"
+          onerror="this.style.display='none'">
+      </div>
+      <div class="card-body">
+        <h3 class="card-title">我如何组织一个长期创作项目</h3>
+        <p class="card-desc">从素材收集到成片输出的完整工作流，以及我踩过的三个坑。</p>
+        <div class="card-meta"><span>2026-08-30</span><span class="dot-sep"></span><span>8 分钟阅读</span></div>
+      </div>
+    </a>
+
+    <a class="card" href="work-gallery.html">
+      <div class="card-cover">
+        <span class="badge">图集</span>
+        <img alt=""
+          src="assets/img/gallery-concrete.jpg"
+          onerror="this.style.display='none'">
+      </div>
+      <div class="card-body">
+        <h3 class="card-title">混凝土诗学 · 城市建筑图集</h3>
+        <p class="card-desc">九张照片，记录这座城市里被忽略的结构美感。</p>
+        <div class="card-meta"><span>2026-08-05</span><span class="dot-sep"></span><span>9 张图片</span></div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- ============ 关于我 ============ -->
+<section class="about" id="about">
+  <div class="wrap about-grid">
+    <div>
+      <div class="eyebrow">About</div>
+      <h2 style="margin: 8px 0 18px; font-size: 26px;">关于我</h2>
+      <p>
+        你好，我是林一。五年前开始用镜头记录生活，后来渐渐发现，文字和图片同样是我表达的一部分。
+        这个站点是我所有作品的归档地，也是我与世界对话的窗口。
+      </p>
+      <p>
+        我相信好的内容不需要喧哗。如果你对某个作品感兴趣，或者想聊聊创作，欢迎随时联系我。
+      </p>
+      <div class="skill-row">
+        <span class="tag-chip">短片拍摄</span>
+        <span class="tag-chip">剪辑调色</span>
+        <span class="tag-chip">纪实摄影</span>
+        <span class="tag-chip">长文写作</span>
+      </div>
+      <div class="social-row">
+        <a class="btn btn-sm" href="#">GitHub</a>
+        <a class="btn btn-sm" href="#">Bilibili</a>
+        <a class="btn btn-sm" href="#">邮箱</a>
+      </div>
+    </div>
+    <div class="aside-card">
+      <h4>分类</h4>
+      <div class="kv"><span>短片</span><span>16</span></div>
+      <div class="kv"><span>长文</span><span>11</span></div>
+      <div class="kv"><span>随笔</span><span>9</span></div>
+      <div class="kv"><span>摄影</span><span>6</span></div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-inner">
+      <span>© 2026 林一 · 个人作品集</span>
+      <span>React + FastAPI 构建</span>
+    </div>
+    <div class="proto-nav">
+      <div class="lbl">原型页面导航（评审用，正式站点会移除）</div>
+      <div class="links">
+        <a class="tag-chip on" href="index.html">首页</a>
+        <a class="tag-chip" href="works.html">作品列表 / 搜索筛选</a>
+        <a class="tag-chip" href="work-video.html">详情 · 短视频</a>
+        <a class="tag-chip" href="work-article.html">详情 · Markdown</a>
+        <a class="tag-chip" href="work-note.html">详情 · 纯文本</a>
+        <a class="tag-chip" href="work-gallery.html">详情 · 图集</a>
+        <a class="tag-chip" href="admin-login.html">后台 · 登录</a>
+        <a class="tag-chip" href="admin-works.html">后台 · 作品管理</a>
+        <a class="tag-chip" href="admin-work-edit.html">后台 · 作品编辑</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

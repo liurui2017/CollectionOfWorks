@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>作品 · 个人作品集原型</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="index.html"><span class="brand-dot"></span> 林一 · Portfolio</a>
+    <nav class="nav-links">
+      <a href="index.html">首页</a>
+      <a href="works.html" class="active">作品</a>
+      <a href="index.html#about">关于</a>
+      <a href="admin-login.html" class="nav-admin">管理后台</a>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap" style="padding-top: 40px; padding-bottom: 70px;">
+
+  <div class="section-head">
+    <div>
+      <div class="eyebrow">All Works</div>
+      <h2>全部作品</h2>
+      <p>共 42 件 · 支持关键词搜索、类型切换、分类与标签筛选</p>
+    </div>
+  </div>
+
+  <!-- 筛选区：搜索 / 类型 Tab / 分类下拉 -->
+  <div class="filters">
+    <div class="search-row">
+      <label class="search-box">
+        <span>⌕</span>
+        <input type="search" placeholder="搜索作品标题、摘要或正文内容…" value="城市">
+      </label>
+      <select class="control">
+        <option>全部分类</option>
+        <option>短片</option>
+        <option>长文</option>
+        <option>随笔</option>
+        <option>摄影</option>
+      </select>
+      <select class="control">
+        <option>最新发布</option>
+        <option>最早发布</option>
+        <option>最多观看</option>
+      </select>
+    </div>
+
+    <div class="tabs">
+      <a class="tag-chip on" href="#">全部类型</a>
+      <a class="tag-chip" href="#">短视频</a>
+      <a class="tag-chip" href="#">Markdown 文章</a>
+      <a class="tag-chip" href="#">纯文本短文</a>
+      <a class="tag-chip" href="#">图集</a>
+    </div>
+
+    <div class="tabs">
+      <span class="tag-chip on"># 城市</span>
+      <span class="tag-chip"># 夜景</span>
+      <span class="tag-chip"># 延时摄影</span>
+      <span class="tag-chip"># 建筑</span>
+      <span class="tag-chip"># 创作方法</span>
+      <span class="tag-chip"># 旅行</span>
+    </div>
+  </div>
+
+  <!-- 作品网格 -->
+  <div class="grid">
+
+    <a class="card" href="work-video.html">
+      <div class="card-cover">
+        <span class="badge badge-accent">短视频</span>
+        <img alt="" src="assets/img/video-city.jpg" onerror="this.style.display='none'">
+        <span class="play-chip">▶</span>
+      </div>
+      <div class="card-body">
+        <h3 class="card-title">夜行：城市的另一面</h3>
+        <p class="card-desc">凌晨两点到四点的城市，霓虹、雨水与空无一人的街道。</p>
+        <div class="card-meta"><span>2026-09-12</span><span class="dot-sep"></span><span>04:18</span></div>
+      </div>
+    </a>
+
+    <a class="card" href="work-article.html">
+      <div class="card-cover">
+        <span class="badge">Markdown 文章</span>
+        <img alt="" src="assets/img/article-data.jpg" onerror="this.style.display='none'">
+      </div>
+      <div class="card-body">
+        <h3 class="card-title">我如何组织一个长期创作项目</h3>
+        <p class="card-desc">从素材收集到成片输出的完整工作流，以及我踩过的三个坑。</p>
+        <div class="card-meta"><span>2026-08-30</span><span class="dot-sep"></span><span>8 分钟阅读</span></div>
+      </div>
+    </a>
+
+    <a class="card" href="work-gallery.html">
+      <div class="card-cover">
+        <span class="badge">图集</span>
+        <img alt="" src="assets/img/gallery-concrete.jpg" onerror="this.style.display='none'">
+      </div>
+      <div class="card-body">
+        <h3 class="card-title">混凝土诗学 · 城市建筑图集</h3>
+        <p class="card-desc">九张照片，记录这座城市里被忽略的结构美感。</p>
+        <div class="card-meta"><span>2026-08-05</span><span class="dot-sep"></span><span>9 张图片</span></div>
+      </div>
+    </a>
+
+    <a class="card" href="work-video.html">
+      <div class="card-cover">
+        <span class="badge badge-accent">短视频</span>
+        <img alt="" src="assets/img/video-mountain.jpg" onerror="this.style.display='none'">
+        <span class="play-chip">▶</span>
+      </div>
+      <div class="card-body">
+        <h3 class="card-title">晨雾之上</h3>
+        <p class="card-desc">无人机视角下的山脉日出，三分钟的静默与辽阔。</p>
+        <div class="card-meta"><span>2026-07-22</span><span class="dot-sep"></span><span>03:02</span></div>
+      </div>
+    </a>
+
+    <a class="card" href="work-note.html">
+      <div class="card-cover">
+        <span class="badge">纯文本短文</span>
+        <img alt="" src="assets/img/note-desk.jpg" onerror="this.style.display='none'">
+      </div>
+      <div class="card-body">
+        <h3 class="card-title">关于「慢下来」的一百字</h3>
+        <p class="card-desc">今天没有拍摄，只是想记录一个念头。</p>
+        <div class="card-meta"><span>2026-07-08</span><span class="dot-sep"></span><span>短文</span></div>
+      </div>
+    </a>
+
+    <a class="card" href="work-video.html">
+      <div class="card-cover">
+        <span class="badge badge-accent">短视频</span>
+        <img alt="" src="assets/img/video-alley.jpg" onerror="this.style.display='none'">
+        <span class="play-chip">▶</span>
+      </div>
+      <div class="card-body">
+        <h3 class="card-title">巷子里的光</h3>
+        <p class="card-desc">一条老街的夜晚，和一个走得很快的人。</p>
+        <div class="card-meta"><span>2026-06-19</span><span class="dot-sep"></span><span>02:41</span></div>
+      </div>
+    </a>
+
+    <a class="card" href="work-article.html">
+      <div class="card-cover">
+        <span class="badge">Markdown 文章</span>
+        <img alt="" src="assets/img/article-circuit.jpg" onerror="this.style.display='none'">
+      </div>
+      <div class="card-body">
+        <h3 class="card-title">为什么我把作品集从 Notion 搬到了自建站</h3>
+        <p class="card-desc">关于掌控感、加载速度，以及一个下午的技术选型。</p>
+        <div class="card-meta"><span>2026-06-02</span><span class="dot-sep"></span><span>6 分钟阅读</span></div>
+      </div>
+    </a>
+
+    <a class="card" href="work-gallery.html">
+      <div class="card-cover">
+        <span class="badge">图集</span>
+        <img alt="" src="assets/img/gallery-fluid.jpg" onerror="this.style.display='none'">
+      </div>
+      <div class="card-body">
+        <h3 class="card-title">流体 · 色彩实验</h3>
+        <p class="card-desc">一次关于墨与水的随机实验，八张成品。</p>
+        <div class="card-meta"><span>2026-05-14</span><span class="dot-sep"></span><span>8 张图片</span></div>
+      </div>
+    </a>
+
+    <a class="card" href="work-article.html">
+      <div class="card-cover">
+        <span class="badge">Markdown 文章</span>
+        <img alt="" src="assets/img/article-forest.jpg" onerror="this.style.display='none'">
+      </div>
+      <div class="card-body">
+        <h3 class="card-title">徒步三百公里后我学到的事</h3>
+        <p class="card-desc">关于体力、注意力，以及什么值得被记录。</p>
+        <div class="card-meta"><span>2026-04-27</span><span class="dot-sep"></span><span>12 分钟阅读</span></div>
+      </div>
+    </a>
+
+  </div>
+
+  <!-- 分页 -->
+  <div style="display:flex; justify-content:center; gap:10px; margin-top:44px;">
+    <a class="btn btn-sm" href="#">← 上一页</a>
+    <a class="btn btn-sm btn-primary" href="#">1</a>
+    <a class="btn btn-sm" href="#">2</a>
+    <a class="btn btn-sm" href="#">3</a>
+    <a class="btn btn-sm" href="#">下一页 →</a>
+  </div>
+
+</div>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-inner">
+      <span>© 2026 林一 · 个人作品集</span>
+      <span>React + FastAPI 构建</span>
+    </div>
+    <div class="proto-nav">
+      <div class="lbl">原型页面导航（评审用，正式站点会移除）</div>
+      <div class="links">
+        <a class="tag-chip" href="index.html">首页</a>
+        <a class="tag-chip on" href="works.html">作品列表 / 搜索筛选</a>
+        <a class="tag-chip" href="work-video.html">详情 · 短视频</a>
+        <a class="tag-chip" href="work-article.html">详情 · Markdown</a>
+        <a class="tag-chip" href="work-note.html">详情 · 纯文本</a>
+        <a class="tag-chip" href="work-gallery.html">详情 · 图集</a>
+        <a class="tag-chip" href="admin-login.html">后台 · 登录</a>
+        <a class="tag-chip" href="admin-works.html">后台 · 作品管理</a>
+        <a class="tag-chip" href="admin-work-edit.html">后台 · 作品编辑</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

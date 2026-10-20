@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>后台 · 编辑作品</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div class="admin-body">
+
+  <aside class="admin-side">
+    <a class="brand" href="index.html"><span class="brand-dot"></span> 林一 · 后台</a>
+    <a href="admin-works.html" class="active">▤ 作品管理</a>
+    <a href="#">◫ 分类管理</a>
+    <a href="#"># 标签管理</a>
+    <a href="#">◧ 媒体库</a>
+    <div class="side-foot">
+      <a href="index.html">↗ 查看前台</a>
+      <a href="admin-login.html">⎋ 退出登录</a>
+    </div>
+  </aside>
+
+  <main class="admin-main">
+    <div class="admin-top">
+      <div>
+        <h1>编辑作品</h1>
+        <div class="sub">编辑「夜行：城市的另一面」· 最后修改 2026-09-13 10:22</div>
+      </div>
+      <div style="display:flex; gap:10px;">
+        <a class="btn" href="admin-works.html">取消</a>
+        <a class="btn btn-ghost" href="work-video.html">预览</a>
+        <a class="btn btn-primary" href="admin-works.html">保存</a>
+      </div>
+    </div>
+
+    <div class="note-strip">
+      下表字段与后端 Pydantic 模型 / PostgreSQL 表结构一一对应，用于确认字段定义（见 docs/data-model.md）。
+    </div>
+
+    <div class="form-grid">
+      <!-- 左：主要内容 -->
+      <div>
+        <div class="panel" style="padding: 22px;">
+          <div class="field">
+            <label>标题 <span style="color:var(--danger)">*</span></label>
+            <input class="input" type="text" value="夜行：城市的另一面">
+          </div>
+
+          <div class="field">
+            <label>URL 别名 slug <span style="color:var(--danger)">*</span></label>
+            <input class="input" type="text" value="night-city">
+            <div class="hint">前台访问地址：/works/<strong>night-city</strong> · 需全局唯一，创建后建议不修改</div>
+          </div>
+
+          <div class="field">
+            <label>内容类型 <span style="color:var(--danger)">*</span></label>
+            <div class="tabs">
+              <span class="tag-chip on">短视频 video</span>
+              <span class="tag-chip">Markdown 文章 article</span>
+              <span class="tag-chip">纯文本短文 note</span>
+              <span class="tag-chip">图集 gallery</span>
+            </div>
+            <div class="hint">切换类型会显示对应的内容编辑区（视频上传 / Markdown 编辑器 / 纯文本 / 多图上传）</div>
+          </div>
+
+          <div class="field">
+            <label>摘要 summary</label>
+            <textarea class="textarea" style="min-height:90px;">凌晨两点到四点的城市，霓虹、雨水与空无一人的街道。</textarea>
+            <div class="hint">显示在列表卡片与分享卡片上，建议 60–120 字</div>
+          </div>
+
+          <!-- 视频类型专属：视频文件上传 -->
+          <div class="field">
+            <label>视频文件（仅「短视频」类型）</label>
+            <div class="dropzone">
+              拖拽 mp4 / mov 到此处，或点击选择文件上传<br>
+              <span style="font-size:12.5px;">已上传：night-city.mp4 · 184 MB · 04:18 · 3840×2160</span>
+            </div>
+            <div class="hint">上传后由后端保存到本地媒体目录，前台通过 <code>&lt;video&gt;</code> 播放；时长/分辨率由后端自动解析写入 media 表</div>
+          </div>
+
+          <!-- 图文类型专属：正文 -->
+          <div class="field">
+            <label>正文正文content（Markdown 文章 / 纯文本短文）</label>
+            <textarea class="textarea tall"># 夜行：城市的另一面
+
+这是一支在凌晨拍摄的短片。两点出发，四点收工，中间遇到了一场雨。
+
+> 拍摄设备：Sony FX3 / 24-70mm</textarea>
+            <div class="hint">Markdown 类型前台渲染为 HTML；纯文本类型按换行分段展示，不做语法解析</div>
+          </div>
+
+          <!-- 图集类型专属：多图管理 -->
+          <div class="field">
+            <label>图集图片（仅「图集」类型）</label>
+            <div class="dropzone">拖拽多张图片到此处，或点击选择（支持批量）</div>
+            <div class="hint">共 9 张 · 可拖拽调整顺序，第一张默认作为封面</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 右：属性设置 -->
+      <div>
+        <div class="panel" style="padding: 22px;">
+          <div class="field">
+            <label>封面图 cover</label>
+            <div class="dropzone" style="padding:0; overflow:hidden;">
+              <img alt="" src="assets/img/video-city.jpg" style="width:100%; aspect-ratio:16/9; object-fit:cover;" onerror="this.style.display='none'">
+            </div>
+            <div class="hint">建议 16:9 · 列表卡片与分享缩略图使用</div>
+          </div>
+
+          <div class="field">
+            <label>分类 category</label>
+            <select class="control" style="width:100%;">
+              <option>短片</option>
+              <option>长文</option>
+              <option>随笔</option>
+              <option>摄影</option>
+            </select>
+            <div class="hint">单选 · 若分类不存在可去「分类管理」新增</div>
+          </div>
+
+          <div class="field">
+            <label>标签 tags</label>
+            <div style="display:flex; flex-wrap:wrap; gap:8px;">
+              <span class="tag-chip on"># 城市</span>
+              <span class="tag-chip on"># 夜景</span>
+              <span class="tag-chip on"># 延时摄影</span>
+              <span class="tag-chip on"># 雨天</span>
+              <span class="tag-chip">+ 添加标签</span>
+            </div>
+            <div class="hint">多对多 · 支持搜索已有标签或直接新建</div>
+          </div>
+
+          <div class="field">
+            <label>发布设置</label>
+            <div class="switch-row">
+              <div><div class="name">发布状态</div><div class="desc">草稿状态下前台不可见</div></div>
+              <div class="switch on"><i></i></div>
+            </div>
+            <div class="switch-row">
+              <div><div class="name">设为精选</div><div class="desc">显示在首页「精选作品」区</div></div>
+              <div class="switch on"><i></i></div>
+            </div>
+          </div>
+
+          <div class="field">
+            <label>发布时间 published_at</label>
+            <input class="input" type="text" value="2026-09-12 20:00">
+            <div class="hint">留空则按首次发布时刻记录；草稿不展示该字段</div>
+          </div>
+
+          <div class="field">
+            <label>排序权重 sort_order</label>
+            <input class="input" type="text" value="10">
+            <div class="hint">数值越大越靠前，相同则按发布时间倒序</div>
+          </div>
+
+          <div class="aside-card" style="margin-top:6px;">
+            <h4>系统字段（只读）</h4>
+            <div class="kv"><span>ID</span><span>1</span></div>
+            <div class="kv"><span>浏览量</span><span>1,243</span></div>
+            <div class="kv"><span>创建时间</span><span>2026-09-12 18:04</span></div>
+            <div class="kv"><span>更新时间</span><span>2026-09-13 10:22</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="proto-nav">
+      <div class="lbl">原型页面导航（评审用）</div>
+      <div class="links">
+        <a class="tag-chip" href="index.html">首页</a>
+        <a class="tag-chip" href="works.html">作品列表 / 搜索筛选</a>
+        <a class="tag-chip" href="work-video.html">详情 · 短视频</a>
+        <a class="tag-chip" href="work-article.html">详情 · Markdown</a>
+        <a class="tag-chip" href="work-note.html">详情 · 纯文本</a>
+        <a class="tag-chip" href="work-gallery.html">详情 · 图集</a>
+        <a class="tag-chip" href="admin-login.html">后台 · 登录</a>
+        <a class="tag-chip" href="admin-works.html">后台 · 作品管理</a>
+        <a class="tag-chip on" href="admin-work-edit.html">后台 · 作品编辑</a>
+      </div>
+    </div>
+  </main>
+</div>
+</body>
+</html>
